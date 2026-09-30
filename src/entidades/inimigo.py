@@ -53,13 +53,26 @@ class Fantasma(EntidadeGrade):
             return
         px, py = self.posicao_pixel()
         py += HUD_H
-        raio = 14
+        
+        # --- ALTERADO: Raio reduzido de 14 para 10 para tornar o fantasma mais pequeno ---
+        raio = 10 
+        
+        # Desenha a cabeça (círculo)
         pygame.draw.circle(tela, self.cor, (int(px), int(py) - 2), raio)
-        pygame.draw.rect(tela, self.cor, (px - raio, py - 2, raio * 2, raio))
+        
+        # Desenha o corpo (retângulo)
+        pygame.draw.rect(tela, self.cor, (int(px - raio), int(py) - 2, raio * 2, raio))
+        
+        # Desenha as ondinhas na base
         for i in range(4):
             fx = px - raio + i * (raio / 2) + raio / 4
-            pygame.draw.circle(tela, self.cor, (int(fx), int(py + raio - 2)), raio // 4)
-        pygame.draw.circle(tela, (255, 255, 255), (int(px - 5), int(py - 4)), 4)
-        pygame.draw.circle(tela, (255, 255, 255), (int(px + 5), int(py - 4)), 4)
-        pygame.draw.circle(tela, (30, 30, 60), (int(px - 5), int(py - 4)), 2)
-        pygame.draw.circle(tela, (30, 30, 60), (int(px + 5), int(py - 4)), 2)
+            pygame.draw.circle(tela, self.cor, (int(fx), int(py + raio - 2)), max(1, raio // 4))
+            
+        # --- ALTERADO: Olhos reduzidos e reposicionados para o novo tamanho ---
+        # Parte branca dos olhos
+        pygame.draw.circle(tela, (255, 255, 255), (int(px - 4), int(py - 3)), 3)
+        pygame.draw.circle(tela, (255, 255, 255), (int(px + 4), int(py - 3)), 3)
+        
+        # Pupilas
+        pygame.draw.circle(tela, (30, 30, 60), (int(px - 4), int(py - 3)), 1)
+        pygame.draw.circle(tela, (30, 30, 60), (int(px + 4), int(py - 3)), 1)

@@ -96,22 +96,25 @@ class Labirinto:
             caminho, key=lambda n: abs(n[0] - N // 2) + abs(n[1] - N // 2))
         self.base_fantasmas = _para_grade(self.base_fantasmas)
 
-        # --- NOVO: Cortar a imagem dupla da saída ---
+        # --- NOVO: Cortar a imagem dupla da saída e DEIXAR MAIOR ---
         sprite_saida = pygame.image.load("imagens/saida.png").convert_alpha()
         
-        # Como são duas portas juntas, dividimos a largura total por 2
         largura_porta = sprite_saida.get_width() // 2
         altura_porta = sprite_saida.get_height()
         
-        # 1. Recorta a porta APAGADA (metade da esquerda)
+        # Aumentamos a porta em 25% (1.25)
+        self.tamanho_saida = int(TILE * 1.25)
+        self.offset_saida = (self.tamanho_saida - TILE) // 2 # Para centralizar
+        
+        # 1. Recorta a porta APAGADA
         area_apagada = pygame.Rect(0, 0, largura_porta, altura_porta)
         img_apagada = sprite_saida.subsurface(area_apagada)
-        self.saida_apagada = pygame.transform.scale(img_apagada, (TILE, TILE))
+        self.saida_apagada = pygame.transform.scale(img_apagada, (self.tamanho_saida, self.tamanho_saida))
         
-        # 2. Recorta a porta ACESA (metade da direita)
+        # 2. Recorta a porta ACESA
         area_acesa = pygame.Rect(largura_porta, 0, largura_porta, altura_porta)
         img_acesa = sprite_saida.subsurface(area_acesa)
-        self.saida_acesa = pygame.transform.scale(img_acesa, (TILE, TILE))
+        self.saida_acesa = pygame.transform.scale(img_acesa, (self.tamanho_saida, self.tamanho_saida))
 
     def dentro(self, cx, cy):
         return 0 <= cx < GRID and 0 <= cy < GRID
@@ -149,7 +152,7 @@ class Labirinto:
             cx, cy = centro_pixel(x, y)
             pygame.draw.circle(tela, COR_BOLINHA, (cx, cy + HUD_H), 4)
 
-        # --- NOVO: Lógica de desenho das portas separadas ---
+        # --- NOVO: Lógica de desenho das portas maiores ---
         if self.grade[self.saida[1]][self.saida[0]] != BLOCO:
             px = self.saida[0] * TILE
             py = self.saida[1] * TILE + HUD_H
@@ -157,11 +160,11 @@ class Labirinto:
             if self.saida_ativa():
                 # O jogador apanhou as bolinhas! Mostra a porta ACESA com o efeito de pulsar
                 pulso = int(4 * abs(pygame.time.get_ticks() % 1000 - 500) / 500)
-                tamanho = TILE + pulso
-                imagem_pulsante = pygame.transform.scale(self.saida_acesa, (tamanho, tamanho))
-                offset = (tamanho - TILE) // 2
+                tamanho_pulso = self.tamanho_saida + pulso
+                imagem_pulsante = pygame.transform.scale(self.saida_acesa, (tamanho_pulso, tamanho_pulso))
+                offset_pulso = (tamanho_pulso - TILE) // 2
                 
-                tela.blit(imagem_pulsante, (px - offset, py - offset))
+                tela.blit(imagem_pulsante, (px - offset_pulso, py - offset_pulso))
             else:
-                # Faltam bolinhas. Mostra a porta APAGADA e quietinha
-                tela.blit(self.saida_apagada, (px, py))
+                # Faltam bolinhas. Mostra a porta APAGADA
+                tela.blit(self.saida_apagada, (px - self.offset_saida, py - self.offset_saida))
