@@ -1,0 +1,45 @@
+# config.py
+
+GRID = 15                      
+TILE = 40                      
+HUD_H = 48                     
+LARGURA = GRID * TILE
+ALTURA = GRID * TILE + HUD_H
+FPS = 60
+
+PISO = 0                       
+PAREDE = 3                     
+BLOCO = 4                      
+
+DURACAO_PASSO_JOGADOR = 0.14   
+DURACAO_PASSO_FANTASMA = 1     
+
+RAIO_BOMBA_DESENHO = 9
+TEMPO_PAVIO = 1.6              
+TEMPO_EXPLOSAO = 0.45          
+MAX_BOMBAS_ATIVAS = 3          
+CHANCE_BLOCO_ARMADILHA = 0.28  
+
+QTD_FANTASMAS = 3
+TEMPO_RESPAWN_FANTASMA = 30.0
+
+TEMPO_TELA_FIM = 3.0
+
+COR_FUNDO = (10, 10, 16)
+COR_PISO = (20, 24, 38)
+COR_GRADE = (30, 35, 52)
+COR_PAREDE = (40, 70, 190)          
+COR_PAREDE_BORDA = (90, 130, 240)
+COR_BLOCO = (150, 95, 55)           
+COR_BLOCO_BORDA = (110, 68, 38)
+COR_BOLINHA = (255, 230, 130)
+COR_SAIDA_INATIVA = (60, 60, 70)
+COR_SAIDA_ATIVA = (60, 230, 120)
+COR_JOGADOR_CORPO = (60, 140, 235)  
+COR_JOGADOR_CABECA = (255, 220, 0)  
+COR_FANTASMA = [(230, 70, 70), (230, 120, 200), (110, 220, 230)]
+COR_BOMBA_1 = (230, 30, 30)
+COR_BOMBA_2 = (20, 20, 20)
+COR_EXPLOSAO = (255, 140, 0)
+COR_EXPLOSAO_CENTRO = (255, 235, 90)
+COR_TEXTO = (240, 240, 240)
