@@ -10,8 +10,6 @@ from src.entidades.personagem import Jogador
 from src.entidades.inimigo import Fantasma
 from src.entidades.bomba import Bomba
 
-# (o resto do seu código da classe Jogo continua aqui embaixo sem alterações)
-
 class Jogo:
     def __init__(self, tela, audio):
         self.tela = tela
@@ -132,12 +130,9 @@ class Jogo:
             pygame.draw.rect(tela, COR_EXPLOSAO, r.inflate(-4, -4))
             pygame.draw.rect(tela, COR_EXPLOSAO_CENTRO, r.inflate(-16, -16))
 
+        # --- AQUI ESTÁ A CORREÇÃO: Puxa o desenho da bomba direto da classe dela ---
         for b in self.bombas:
-            cx, cy = centro_pixel(*b.celula)
-            piscando = int(b.idade / 0.2) % 2 == 0
-            cor = COR_BOMBA_1 if piscando else COR_BOMBA_2
-            pygame.draw.circle(tela, cor, (cx, cy + HUD_H), RAIO_BOMBA_DESENHO)
-            pygame.draw.circle(tela, (200, 200, 200), (cx, cy + HUD_H), RAIO_BOMBA_DESENHO, 1)
+            b.desenhar(tela)
 
         for f in self.fantasmas:
             f.desenhar(tela)

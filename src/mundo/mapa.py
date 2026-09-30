@@ -96,6 +96,23 @@ class Labirinto:
             caminho, key=lambda n: abs(n[0] - N // 2) + abs(n[1] - N // 2))
         self.base_fantasmas = _para_grade(self.base_fantasmas)
 
+        # --- NOVO: Cortar a imagem dupla da saída ---
+        sprite_saida = pygame.image.load("imagens/saida.png").convert_alpha()
+        
+        # Como são duas portas juntas, dividimos a largura total por 2
+        largura_porta = sprite_saida.get_width() // 2
+        altura_porta = sprite_saida.get_height()
+        
+        # 1. Recorta a porta APAGADA (metade da esquerda)
+        area_apagada = pygame.Rect(0, 0, largura_porta, altura_porta)
+        img_apagada = sprite_saida.subsurface(area_apagada)
+        self.saida_apagada = pygame.transform.scale(img_apagada, (TILE, TILE))
+        
+        # 2. Recorta a porta ACESA (metade da direita)
+        area_acesa = pygame.Rect(largura_porta, 0, largura_porta, altura_porta)
+        img_acesa = sprite_saida.subsurface(area_acesa)
+        self.saida_acesa = pygame.transform.scale(img_acesa, (TILE, TILE))
+
     def dentro(self, cx, cy):
         return 0 <= cx < GRID and 0 <= cy < GRID
 
@@ -132,12 +149,19 @@ class Labirinto:
             cx, cy = centro_pixel(x, y)
             pygame.draw.circle(tela, COR_BOLINHA, (cx, cy + HUD_H), 4)
 
+        # --- NOVO: Lógica de desenho das portas separadas ---
         if self.grade[self.saida[1]][self.saida[0]] != BLOCO:
-            ex, ey = centro_pixel(*self.saida)
-            ey += HUD_H
+            px = self.saida[0] * TILE
+            py = self.saida[1] * TILE + HUD_H
+            
             if self.saida_ativa():
-                pulso = 3 + int(2 * abs(pygame.time.get_ticks() % 1000 - 500) / 500)
-                pygame.draw.circle(tela, COR_SAIDA_ATIVA, (ex, ey), 14 + pulso, 3)
-                pygame.draw.circle(tela, COR_SAIDA_ATIVA, (ex, ey), 8)
+                # O jogador apanhou as bolinhas! Mostra a porta ACESA com o efeito de pulsar
+                pulso = int(4 * abs(pygame.time.get_ticks() % 1000 - 500) / 500)
+                tamanho = TILE + pulso
+                imagem_pulsante = pygame.transform.scale(self.saida_acesa, (tamanho, tamanho))
+                offset = (tamanho - TILE) // 2
+                
+                tela.blit(imagem_pulsante, (px - offset, py - offset))
             else:
-                pygame.draw.circle(tela, COR_SAIDA_INATIVA, (ex, ey), 12, 2)
+                # Faltam bolinhas. Mostra a porta APAGADA e quietinha
+                tela.blit(self.saida_apagada, (px, py))
