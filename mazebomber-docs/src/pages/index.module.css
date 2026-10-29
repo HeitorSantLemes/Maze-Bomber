@@ -1,0 +1,293 @@
+
+.main {
+  background: #f4efe7;
+  color: #14283f;
+}
+
+/* Apresentação principal */
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 0.8fr;
+  align-items: center;
+  gap: 3rem;
+  padding: 4rem 8%;
+  background: linear-gradient(
+    135deg,
+    #07192c 0%,
+    #14283f 65%,
+    #24415c 100%
+  );
+  color: #f4efe7;
+}
+
+.heroContent {
+  max-width: 650px;
+}
+
+.eyebrow {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: #d59a65;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.heroTitle {
+  margin-bottom: 1rem;
+  color: #ffffff;
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-weight: 900;
+  letter-spacing: -2px;
+}
+
+.heroTitle span {
+  color: #c58b58;
+}
+
+.subtitle {
+  margin-bottom: 1rem;
+  color: #8dc8ee;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.description {
+  max-width: 580px;
+  margin-bottom: 2rem;
+  color: #d8e2ec;
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.primaryButton,
+.secondaryButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.primaryButton {
+  background: #a66c3e;
+  color: #ffffff;
+  border: 1px solid #a66c3e;
+}
+
+.primaryButton:hover {
+  background: #87532e;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.secondaryButton {
+  background: transparent;
+  color: #f4efe7;
+  border: 1px solid #8dc8ee;
+}
+
+.secondaryButton:hover {
+  background: #24415c;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* Imagem do banner */
+
+.heroImageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.heroImage {
+  width: 100%;
+  max-width: 420px;
+  max-height: 620px;
+  object-fit: contain;
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+/* Seção de funcionalidades */
+
+.featuresSection {
+  padding: 5rem 8%;
+}
+
+.sectionHeading {
+  max-width: 700px;
+  margin: 0 auto 3rem;
+  text-align: center;
+}
+
+.sectionHeading h2,
+.aboutContent h2,
+.blogSection h2 {
+  color: #14283f;
+  font-size: 2.2rem;
+  font-weight: 800;
+}
+
+.sectionHeading p {
+  color: #53677a;
+  font-size: 1.1rem;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.featureCard {
+  padding: 2rem;
+  background: #ffffff;
+  border: 1px solid #e2d7c8;
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(20, 40, 63, 0.06);
+  transition: transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.featureCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 14px 30px rgba(20, 40, 63, 0.12);
+}
+
+.featureIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  margin-bottom: 1.5rem;
+  background: #79513a;
+  border-radius: 50%;
+  font-size: 1.8rem;
+}
+
+.featureCard h3 {
+  color: #14283f;
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+
+.featureCard p {
+  min-height: 80px;
+  color: #53677a;
+  line-height: 1.7;
+}
+
+.featureLink {
+  color: #79513a;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.featureLink:hover {
+  color: #4d3020;
+  text-decoration: underline;
+}
+
+/* Sobre o projeto */
+
+.aboutSection {
+  padding: 5rem 8%;
+  background: #e8dcc8;
+}
+
+.aboutContent {
+  max-width: 850px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.aboutContent p {
+  margin: 1.5rem 0 2rem;
+  color: #42566a;
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+/* Blog */
+
+.blogSection {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 4rem 8%;
+  background: #14283f;
+  color: #f4efe7;
+}
+
+.blogSection h2 {
+  color: #ffffff;
+}
+
+.blogSection p {
+  color: #d8e2ec;
+}
+
+/* Responsividade */
+
+@media screen and (max-width: 996px) {
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 3rem 6%;
+    text-align: center;
+  }
+
+  .heroContent {
+    margin: 0 auto;
+  }
+
+  .buttons {
+    justify-content: center;
+  }
+
+  .heroImage {
+    max-width: 350px;
+    max-height: 500px;
+  }
+
+  .features {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .heroTitle {
+    font-size: 2.8rem;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+  }
+
+  .featuresSection {
+    padding: 3rem 5%;
+  }
+
+  .featureCard p {
+    min-height: auto;
+  }
+
+  .blogSection {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 3rem 6%;
+  }
+}

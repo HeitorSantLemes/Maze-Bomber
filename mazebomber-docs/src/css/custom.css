@@ -1,0 +1,68 @@
+
+/* Identidade visual Maze-Bomber */
+
+:root {
+  --ifm-color-primary: #4da3d9;
+  --ifm-color-primary-dark: #3688bd;
+  --ifm-color-primary-darker: #2875a8;
+  --ifm-color-primary-darkest: #1b5c88;
+  --ifm-color-primary-light: #72b8e5;
+  --ifm-color-primary-lighter: #9acdec;
+  --ifm-color-primary-lightest: #c4e3f5;
+
+  --ifm-background-color: #f4efe7;
+  --ifm-font-color-base: #14283f;
+}
+
+/* Tema escuro */
+
+html[data-theme='dark'] {
+  --ifm-color-primary: #8dc8ee;
+  --ifm-color-primary-dark: #72b8e5;
+  --ifm-color-primary-darker: #4da3d9;
+  --ifm-color-primary-darkest: #2875a8;
+  --ifm-color-primary-light: #acd9f2;
+  --ifm-color-primary-lighter: #c4e3f5;
+  --ifm-color-primary-lightest: #e0f1fa;
+
+  --ifm-background-color: #14283f;
+  --ifm-font-color-base: #e8dcc8;
+}
+
+/* Menu superior */
+
+.navbar {
+  background-color: #14283f;
+}
+
+.navbar__title {
+  color: #f4efe7;
+  font-weight: 800;
+}
+
+.navbar__link {
+  color: #e8dcc8;
+}
+
+.navbar__link:hover {
+  color: #8dc8ee;
+}
+
+/* Rodapé */
+
+.footer {
+  background-color: #07192c;
+  color: #e8dcc8;
+}
+
+/* Botões */
+
+.button--primary {
+  background-color: #a66c3e;
+  border-color: #a66c3e;
+}
+
+.button--primary:hover {
+  background-color: #87532e;
+  border-color: #87532e;
+}

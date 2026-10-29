@@ -1,0 +1,41 @@
+{
+  "permalink": "/blog/primeira-postagem",
+  "source": "@site/blog/2026-10-21-primeira-postagem.md",
+  "title": "Nossa primeira postagem",
+  "description": "Seja bem-vindo ao novo blog do Mazebomber! Esta é uma postagem de exemplo configurada para o seu site.",
+  "date": "2026-10-21T00:00:00.000Z",
+  "tags": [
+    {
+      "inline": true,
+      "label": "mazebomber",
+      "permalink": "/blog/tags/mazebomber"
+    },
+    {
+      "inline": true,
+      "label": "novidades",
+      "permalink": "/blog/tags/novidades"
+    }
+  ],
+  "readingTime": 0.09,
+  "hasTruncateMarker": false,
+  "authors": [
+    {
+      "name": "Heitor Lemes",
+      "title": "Desenvolvedor do Maze-Bomber",
+      "url": "https://github.com/HeitorSantLemes",
+      "imageURL": "https://github.com/HeitorSantLemes.png",
+      "key": "admin",
+      "page": null
+    }
+  ],
+  "frontMatter": {
+    "slug": "primeira-postagem",
+    "title": "Nossa primeira postagem",
+    "authors": "admin",
+    "tags": [
+      "mazebomber",
+      "novidades"
+    ]
+  },
+  "unlisted": false
+}
