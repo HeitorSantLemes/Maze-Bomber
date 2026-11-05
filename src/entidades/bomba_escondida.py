@@ -1,7 +1,8 @@
+# bomba_escondida.py
 import pygame
 import os
 import math
-from src.ui.config import HUD_H
+from src.ui.config import HUD_H, IMG_DIR
 from src.ui.utils import retangulo_celula
 
 class BombaEscondida:
@@ -13,16 +14,18 @@ class BombaEscondida:
         self.revelada = False
 
         if BombaEscondida._imagem is None:
-            caminho_img = os.path.normpath(os.path.join("imagens", "bomba_escondida.png"))
-            if not os.path.exists(caminho_img):
-                caminho_img = os.path.normpath(os.path.join("..", "..", "imagens", "bomba_escondida.png"))
+            # Carrega diretamente da nova pasta centralizada assets/imagens usando o IMG_DIR
+            caminho_img = os.path.join(IMG_DIR, "bomba_escondida.png")
 
-            if os.path.exists(caminho_img):
-                try:
+            try:
+                if os.path.exists(caminho_img):
                     BombaEscondida._imagem = pygame.image.load(caminho_img).convert_alpha()
-                except Exception as e:
-                    print(f"ERRO ao carregar a imagem da bomba: {e}")
+                else:
+                    print(f"Aviso: Imagem da bomba escondida não encontrada em {caminho_img}")
                     BombaEscondida._imagem = None
+            except Exception as e:
+                print(f"ERRO ao carregar a imagem da bomba: {e}")
+                BombaEscondida._imagem = None
 
     def revelar(self):
         """Chamado quando o bloco destrutível acima é destruído."""
@@ -36,7 +39,6 @@ class BombaEscondida:
 
             if BombaEscondida._imagem is not None:
                 # Efeito de pulsação usando seno baseado no tempo em milissegundos
-                # Ajuste a velocidade multiplicando o tempo (ex: * 0.01) e a intensidade (ex: * 3)
                 tempo = pygame.time.get_ticks()
                 fator_escala = 1.0 + 0.15 * math.sin(tempo * 0.01) 
                 

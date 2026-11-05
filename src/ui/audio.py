@@ -1,15 +1,16 @@
 # audio.py
 import pygame
 import os
+from src.ui.config import SOM_DIR
 
 ARQUIVOS_SOM = {
-    "bomba":          "sons/colocar_bomba.wav",
-    "explosao":       "sons/explosao.wav",
-    "bolinha":        "sons/coletar_bolinha.wav",
-    "bomba_escondida":"sons/bomba_escondida.wav",
-    "fantasma_morre": "sons/fantasma_morre.wav",
-    "morte":          "sons/morte.wav",
-    "vitoria":        "sons/vitoria.wav",
+    "bomba":            os.path.join(SOM_DIR, "colocar_bomba.wav"),
+    "explosao":         os.path.join(SOM_DIR, "explosao.wav"),
+    "bolinha":          os.path.join(SOM_DIR, "coletar_bolinha.wav"),
+    "bomba_escondida":  os.path.join(SOM_DIR, "bomba_escondida.wav"),
+    "fantasma_morre":   os.path.join(SOM_DIR, "fantasma_morre.wav"),
+    "morte":            os.path.join(SOM_DIR, "morte.wav"),
+    "vitoria":          os.path.join(SOM_DIR, "vitoria.wav"),
 }
 
 class Audio:
@@ -23,7 +24,12 @@ class Audio:
         
         for nome, caminho in ARQUIVOS_SOM.items():
             if os.path.exists(caminho):
-                self.sons[nome] = pygame.mixer.Sound(caminho)
+                try:
+                    self.sons[nome] = pygame.mixer.Sound(caminho)
+                except Exception as e:
+                    print(f"Erro ao carregar o som {nome} em {caminho}: {e}")
+            else:
+                print(f"Aviso: Arquivo de som não encontrado: {caminho}")
 
     def tocar(self, nome):
         som = self.sons.get(nome)

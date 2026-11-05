@@ -1,4 +1,5 @@
 # personagem.py
+import os
 import pygame
 import math
 from src.ui.config import *
@@ -17,13 +18,14 @@ class Jogador(EntidadeGrade):
         super().__init__(celula, DURACAO_PASSO_JOGADOR)
         self.vivo = True
         
-        # --- NOVO: Sistema de Imagens e Animação ---
+        # --- Sistema de Imagens e Animação ---
         self.frames = []
         self.frame_atual = 0
         self.tempo_animacao = 0  # Controla a velocidade de troca dos passos
         
-        # 1. Carrega a imagem com os 4 personagens (assumindo que o fundo já está transparente)
-        sprite_sheet = pygame.image.load("imagens/personagem_andando.png").convert_alpha()
+        # 1. Carrega a imagem com os 4 personagens usando a pasta assets centralizada
+        caminho_andando = os.path.join(IMG_DIR, "personagem_andando.png")
+        sprite_sheet = pygame.image.load(caminho_andando).convert_alpha()
         
         # 2. Descobre o tamanho de cada personagem fatiando a largura total por 4
         largura_frame = sprite_sheet.get_width() // 4
@@ -34,12 +36,13 @@ class Jogador(EntidadeGrade):
             area_recorte = pygame.Rect(i * largura_frame, 0, largura_frame, altura_frame)
             frame_recortado = sprite_sheet.subsurface(area_recorte)
             
-            # Ajusta para caber certinho no quadrado do labirinto (TILE)
+            # Ajusta para caber certinho no quadrado do labirinto (TILE) mantendo a proporção
             frame_pronto = pygame.transform.scale(frame_recortado, (TILE, TILE))
             self.frames.append(frame_pronto)
             
-        # 4. Carrega e ajusta a imagem do personagem parado
-        imagem_parado_original = pygame.image.load("imagens/personagem_parado.png").convert_alpha()
+        # 4. Carrega e ajusta a imagem do personagem parado usando a pasta assets
+        caminho_parado = os.path.join(IMG_DIR, "personagem_parado.png")
+        imagem_parado_original = pygame.image.load(caminho_parado).convert_alpha()
         self.imagem_parado = pygame.transform.scale(imagem_parado_original, (TILE, TILE))
             
     def pode_mover(self, dx, dy, labirinto, bombas):
@@ -55,7 +58,7 @@ class Jogador(EntidadeGrade):
         if self.em_movimento():
             self.atualizar_deslizamento(dt)
             
-            # --- NOVO: Toca a animação APENAS se estiver se movendo ---
+            # --- Toca a animação APENAS se estiver se movendo ---
             self.tempo_animacao += dt
             if self.tempo_animacao > 0.15:  # Quanto menor o número, mais rápido ele mexe as pernas
                 self.tempo_animacao = 0
@@ -85,7 +88,7 @@ class Jogador(EntidadeGrade):
         if self.vivo:
             # Verifica se está a deslizar para o próximo bloco
             if self.em_movimento():
-                # Desenha a imagem atual da animação de andar
+                # Desenha a imagem atual da animação de andar cortada perfeitamente
                 tela.blit(self.frames[self.frame_atual], (int(px - TILE/2), int(py - TILE/2)))
             else:
                 # Desenha a imagem estática dele parado

@@ -1,5 +1,6 @@
 # mapa.py
 import random
+import os
 import pygame
 from src.ui.config import *
 from src.ui.utils import *
@@ -13,8 +14,8 @@ def _gerar_arvore():
     while pilha:
         x, y = pilha[-1]
         candidatos = [(x + dx, y + dy) for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))
-                      if 0 <= x + dx < N and 0 <= y + dy < N
-                      and (x + dx, y + dy) not in pai]
+                     if 0 <= x + dx < N and 0 <= y + dy < N
+                     and (x + dx, y + dy) not in pai]
         if candidatos:
             novo = random.choice(candidatos)
             pai[novo] = (x, y)
@@ -96,8 +97,15 @@ class Labirinto:
             caminho, key=lambda n: abs(n[0] - N // 2) + abs(n[1] - N // 2))
         self.base_fantasmas = _para_grade(self.base_fantasmas)
 
-        # --- NOVO: Cortar a imagem dupla da saída e DEIXAR MAIOR ---
-        sprite_saida = pygame.image.load("imagens/saida.png").convert_alpha()
+        # --- CORRIGIDO: Carrega a imagem da saída usando o IMG_DIR da pasta assets ---
+        caminho_saida = os.path.join(IMG_DIR, "saida.png")
+        try:
+            sprite_saida = pygame.image.load(caminho_saida).convert_alpha()
+        except Exception as e:
+            print(f"ERRO ao carregar a imagem da saída em {caminho_saida}: {e}")
+            # Cria uma surface reserva caso o arquivo não seja encontrado para evitar crash
+            sprite_saida = pygame.Surface((TILE * 2, TILE))
+            sprite_saida.fill((60, 230, 120))
         
         largura_porta = sprite_saida.get_width() // 2
         altura_porta = sprite_saida.get_height()
@@ -152,7 +160,7 @@ class Labirinto:
             cx, cy = centro_pixel(x, y)
             pygame.draw.circle(tela, COR_BOLINHA, (cx, cy + HUD_H), 4)
 
-        # --- NOVO: Lógica de desenho das portas maiores ---
+        # --- Lógica de desenho das portas maiores ---
         if self.grade[self.saida[1]][self.saida[0]] != BLOCO:
             px = self.saida[0] * TILE
             py = self.saida[1] * TILE + HUD_H

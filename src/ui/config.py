@@ -1,18 +1,19 @@
 # config.py
+import os
 
-GRID = 15                      
-TILE = 40                      
-HUD_H = 48                     
+GRID = 15                     
+TILE = 40                     
+HUD_H = 48                    
 LARGURA = GRID * TILE
 ALTURA = GRID * TILE + HUD_H
 FPS = 60
 
-PISO = 0                       
-PAREDE = 3                     
-BLOCO = 4                      
+PISO = 0                      
+PAREDE = 3                    
+BLOCO = 4                     
 
 DURACAO_PASSO_JOGADOR = 0.14   
-DURACAO_PASSO_FANTASMA = 1     
+DURACAO_PASSO_FANTASMA = 1    
 
 RAIO_BOMBA_DESENHO = 9
 TEMPO_PAVIO = 1.6              
@@ -28,9 +29,9 @@ TEMPO_TELA_FIM = 3.0
 COR_FUNDO = (10, 10, 16)
 COR_PISO = (20, 24, 38)
 COR_GRADE = (30, 35, 52)
-COR_PAREDE = (40, 70, 190)          
+COR_PAREDE = (40, 70, 190)         
 COR_PAREDE_BORDA = (90, 130, 240)
-COR_BLOCO = (150, 95, 55)           
+COR_BLOCO = (150, 95, 55)          
 COR_BLOCO_BORDA = (110, 68, 38)
 COR_BOLINHA = (255, 230, 130)
 COR_SAIDA_INATIVA = (60, 60, 70)
@@ -43,3 +44,9 @@ COR_BOMBA_2 = (20, 20, 20)
 COR_EXPLOSAO = (255, 140, 0)
 COR_EXPLOSAO_CENTRO = (255, 235, 90)
 COR_TEXTO = (240, 240, 240)
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ASSETS_DIR = os.path.join(BASE_DIR, "assets")
+
+IMG_DIR = os.path.join(ASSETS_DIR, "imagens")
+SOM_DIR = os.path.join(ASSETS_DIR, "sons")

@@ -1,6 +1,7 @@
 # bomba.py
 import pygame
-from src.ui.config import TILE, HUD_H
+import os
+from src.ui.config import TILE, HUD_H, IMG_DIR
 
 class Bomba:
     def __init__(self, celula):
@@ -8,8 +9,16 @@ class Bomba:
         self.idade = 0.0
         self.solta = True
         
-        # Carrega a imagem original com fundo transparente
-        imagem_bomba = pygame.image.load("imagens/bomba.png").convert_alpha()
+        # Carrega a imagem original utilizando o IMG_DIR da pasta assets
+        caminho_img = os.path.join(IMG_DIR, "bomba.png")
+        
+        try:
+            imagem_bomba = pygame.image.load(caminho_img).convert_alpha()
+        except Exception as e:
+            print(f"ERRO ao carregar a imagem da bomba em {caminho_img}: {e}")
+            # Cria uma surface vazia de fallback caso ocorra algum erro de carregamento
+            imagem_bomba = pygame.Surface((TILE, TILE))
+            imagem_bomba.fill((230, 30, 30))
         
         # 1. Cria a versão de tamanho normal
         self.imagem_normal = pygame.transform.scale(imagem_bomba, (TILE, TILE))

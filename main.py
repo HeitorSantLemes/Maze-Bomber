@@ -2,6 +2,7 @@
 import pygame
 import sys
 import random
+import os
 
 from src.ui.config import *
 from src.ui.utils import *
@@ -220,7 +221,7 @@ class Jogo:
         pygame.draw.rect(self.tela, (255, 255, 255), self.btn_acao, 2, border_radius=8)
 
         t_btn = self.fonte.render(texto_botao, True, (255, 255, 255))
-        self.tela.blit(t_btn, t_btn.get_rect(center=self.btn_acao.center))
+        tela.blit(t_btn, t_btn.get_rect(center=self.btn_acao.center))
 
 
 def main():
@@ -228,6 +229,16 @@ def main():
     pygame.init()
     tela = pygame.display.set_mode((LARGURA, ALTURA))
     pygame.display.set_caption("MazeBomber")
+    
+    # --- NOVO: Adiciona um ícone na janela puxando da nova pasta assets ---
+    try:
+        caminho_icone = os.path.join(IMG_DIR, "personagem_parado.png")
+        if os.path.exists(caminho_icone):
+            icone = pygame.image.load(caminho_icone)
+            pygame.display.set_icon(icone)
+    except Exception as e:
+        print(f"Não foi possível carregar o ícone da janela: {e}")
+
     relogio = pygame.time.Clock()
 
     audio = Audio()
