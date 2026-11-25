@@ -1,4 +1,3 @@
-# main.py
 import pygame
 import sys
 import random
@@ -22,27 +21,27 @@ class Jogo:
         self.fonte_grande = pygame.font.SysFont(None, 54)
         self.rodada = 1
         self.nova_rodada()
-        self.estado = "menu"  # O jogo começa no menu principal
+        self.estado = "menu"
 
     def nova_rodada(self):
         self.labirinto = Labirinto()
         self.jogador = Jogador(self.labirinto.inicio)
         cores = COR_FANTASMA
-        self.fantasmas = [Fantasma(self.labirinto.base_fantasmas, cores[i % len(cores)], i)
-                         for i in range(QTD_FANTASMAS)]
+        self.fantasmas = [
+            Fantasma(self.labirinto.base_fantasmas, cores[i % len(cores)], i)
+            for i in range(QTD_FANTASMAS)
+        ]
         self.bombas = []
-        
-        # Cria as bombas escondidas debaixo de alguns blocos destrutíveis do labirinto
+
         self.dict_bombas_escondidas = {}
         for y, linha in enumerate(self.labirinto.grade):
             for x, tipo in enumerate(linha):
                 if tipo == BLOCO:
-                    # 25% de chance de ter uma bomba escondida neste bloco
                     if random.random() < 0.25:
                         self.dict_bombas_escondidas[(x, y)] = BombaEscondida((x, y))
 
-        self.explosoes = {}          
-        self.estado = "jogando"      
+        self.explosoes = {}
+        self.estado = "jogando"
         self.timer_fim = 0.0
 
     def colocar_bomba(self):
@@ -67,7 +66,7 @@ class Jogo:
             if not self.labirinto.dentro(x, y):
                 continue
             if self.labirinto.grade[y][x] == PAREDE:
-                continue          
+                continue
             self.explosoes[(x, y)] = TEMPO_EXPLOSAO
 
             for outra in list(self.bombas):
@@ -75,7 +74,6 @@ class Jogo:
                     outra.idade = TEMPO_PAVIO
 
             if self.labirinto.grade[y][x] == BLOCO:
-                # Verifica se há uma bomba escondida embaixo deste bloco
                 if (x, y) in self.dict_bombas_escondidas:
                     bomba_oculta = self.dict_bombas_escondidas.pop((x, y))
                     bomba_oculta.revelar()
@@ -85,10 +83,8 @@ class Jogo:
                 self.labirinto.destruir_bloco(x, y)
 
     def atualizar(self, dt, keys, clique_mouse):
-        # Verifica se o jogador clicou no botão dos menus/telas de fim de jogo
         if self.estado != "jogando":
-            self.timer_fim -= dt
-            if clique_mouse and hasattr(self, 'btn_acao') and self.btn_acao.collidepoint(pygame.mouse.get_pos()):
+            if clique_mouse and hasattr(self, "btn_acao") and self.btn_acao.collidepoint(pygame.mouse.get_pos()):
                 if self.estado == "menu" or self.estado == "morreu":
                     self.nova_rodada()
                     self.estado = "jogando"
@@ -96,8 +92,6 @@ class Jogo:
                     self.rodada += 1
                     self.nova_rodada()
                     self.estado = "jogando"
-            elif self.timer_fim <= 0 and self.estado != "menu":
-                self.nova_rodada()
             return
 
         self.jogador.atualizar(dt, keys, self.labirinto, self.bombas)
@@ -135,7 +129,8 @@ class Jogo:
                 self.audio.tocar("fantasma_morre")
 
         if pos_jogador in self.explosoes or any(
-                f.vivo and (f.cx, f.cy) == pos_jogador for f in self.fantasmas):
+            f.vivo and (f.cx, f.cy) == pos_jogador for f in self.fantasmas
+        ):
             self.estado = "morreu"
             self.timer_fim = TEMPO_TELA_FIM
             self.audio.tocar("morte")
@@ -144,21 +139,18 @@ class Jogo:
         if self.labirinto.saida_ativa() and pos_jogador == self.labirinto.saida:
             self.estado = "venceu"
             self.timer_fim = TEMPO_TELA_FIM
-            self.rodada += 1
             self.audio.tocar("vitoria")
 
     def desenhar(self):
         tela = self.tela
         tela.fill(COR_FUNDO)
 
-        # Desenho do Menu Inicial
         if self.estado == "menu":
             t1 = self.fonte_grande.render("MAZE BOMBER", True, (255, 215, 0))
             t2 = self.fonte.render("Colete todas as bolinhas e encontre a saída!", True, COR_TEXTO)
             tela.blit(t1, t1.get_rect(center=(LARGURA // 2, ALTURA // 2 - 60)))
             tela.blit(t2, t2.get_rect(center=(LARGURA // 2, ALTURA // 2 - 20)))
 
-            # Botão Iniciar
             self.btn_acao = pygame.Rect(LARGURA // 2 - 110, ALTURA // 2 + 30, 220, 50)
             mouse_pos = pygame.mouse.get_pos()
             hover = self.btn_acao.collidepoint(mouse_pos)
@@ -171,7 +163,6 @@ class Jogo:
             tela.blit(t_btn, t_btn.get_rect(center=self.btn_acao.center))
             return
 
-        # Desenho do Jogo Normal
         self.labirinto.desenhar(tela)
 
         for (x, y), tempo in self.explosoes.items():
@@ -188,7 +179,6 @@ class Jogo:
         self.jogador.desenhar(tela)
         self._desenhar_hud()
 
-        # Telas de Fim de Jogo (Derrota / Vitória)
         if self.estado == "morreu":
             self._desenhar_faixa("VOCÊ MORREU!", (255, 90, 90), "Tente novamente!", "TENTAR NOVAMENTE")
         elif self.estado == "venceu":
@@ -196,22 +186,23 @@ class Jogo:
 
     def _desenhar_hud(self):
         tela = self.tela
-        texto = (f"Rodada {self.rodada}   "
-                f"Bolinhas: {self.labirinto.bolinhas_coletadas}/{self.labirinto.total_bolinhas}   "
-                f"Bombas: {len(self.bombas)}/{MAX_BOMBAS_ATIVAS}")
+        texto = (
+            f"Rodada {self.rodada}   "
+            f"Bolinhas: {self.labirinto.bolinhas_coletadas}/{self.labirinto.total_bolinhas}   "
+            f"Bombas: {len(self.bombas)}/{MAX_BOMBAS_ATIVAS}"
+        )
         tela.blit(self.fonte.render(texto, True, COR_TEXTO), (10, 12))
 
     def _desenhar_faixa(self, titulo, cor, subtitulo, texto_botao):
-        véu = pygame.Surface((LARGURA, ALTURA), pygame.SRCALPHA)
-        véu.fill((0, 0, 0, 180))
-        self.tela.blit(véu, (0, 0))
-        
+        veu = pygame.Surface((LARGURA, ALTURA), pygame.SRCALPHA)
+        veu.fill((0, 0, 0, 180))
+        self.tela.blit(veu, (0, 0))
+
         t1 = self.fonte_grande.render(titulo, True, cor)
         t2 = self.fonte.render(subtitulo, True, COR_TEXTO)
         self.tela.blit(t1, t1.get_rect(center=(LARGURA // 2, ALTURA // 2 - 40)))
         self.tela.blit(t2, t2.get_rect(center=(LARGURA // 2, ALTURA // 2 + 5)))
 
-        # Botão interativo centralizado na faixa
         self.btn_acao = pygame.Rect(LARGURA // 2 - 110, ALTURA // 2 + 45, 220, 45)
         mouse_pos = pygame.mouse.get_pos()
         hover = self.btn_acao.collidepoint(mouse_pos)
@@ -221,7 +212,7 @@ class Jogo:
         pygame.draw.rect(self.tela, (255, 255, 255), self.btn_acao, 2, border_radius=8)
 
         t_btn = self.fonte.render(texto_botao, True, (255, 255, 255))
-        tela.blit(t_btn, t_btn.get_rect(center=self.btn_acao.center))
+        self.tela.blit(t_btn, t_btn.get_rect(center=self.btn_acao.center))
 
 
 def main():
@@ -229,8 +220,7 @@ def main():
     pygame.init()
     tela = pygame.display.set_mode((LARGURA, ALTURA))
     pygame.display.set_caption("MazeBomber")
-    
-    # --- NOVO: Adiciona um ícone na janela puxando da nova pasta assets ---
+
     try:
         caminho_icone = os.path.join(IMG_DIR, "personagem_parado.png")
         if os.path.exists(caminho_icone):
@@ -259,12 +249,13 @@ def main():
                 if evento.key == pygame.K_SPACE and jogo.estado == "jogando":
                     jogo.colocar_bomba()
             if evento.type == pygame.MOUSEBUTTONDOWN:
-                if evento.button == 1:  # Clique esquerdo do mouse
+                if evento.button == 1:
                     clique_mouse = True
 
         jogo.atualizar(dt, pygame.key.get_pressed(), clique_mouse)
         jogo.desenhar()
         pygame.display.flip()
+
 
 if __name__ == "__main__":
     main()

@@ -1,4 +1,7 @@
+node_modules/
+build/
+.docusaurus/
 __pycache__/
 *.pyc
-*.pyo
-*.pyd
+.venv/
+venv/

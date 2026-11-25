@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
@@ -14,20 +13,20 @@ const features = [
     button: 'Conhecer o jogo',
   },
   {
-    icon: '💻',
-    title: 'Desenvolvimento',
+    icon: '📊',
+    title: 'Diagramas',
     description:
-      'Descubra como o projeto foi desenvolvido utilizando Python e Pygame.',
-    link: '/docs/intro',
-    button: 'Explorar o código',
+      'Visualize a arquitetura, os fluxos e a modelagem do projeto.',
+    link: '/docs/diagramas',
+    button: 'Ver diagramas',
   },
   {
-    icon: '📚',
-    title: 'Documentação',
+    icon: '🗺️',
+    title: 'Personagem, Inimigos e Mapa',
     description:
-      'Encontre tutoriais, explicações e informações técnicas do projeto.',
-    link: '/docs/intro',
-    button: 'Ler documentação',
+      'Explore os detalhes de movimentação, IA dos fantasmas, geração procedural e cenário.',
+    link: '/docs/personagem',
+    button: 'Explorar entidades e mapa',
   },
 ];
 
@@ -79,7 +78,7 @@ export default function Home() {
 
           <div className={styles.heroImageContainer}>
             <img
-              src="/img/maze-bomber-banner.png"
+              src="/img/capa-jogo.png"
               alt="Arte oficial do Maze-Bomber"
               className={styles.heroImage}
             />

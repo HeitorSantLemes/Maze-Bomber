@@ -1,7 +1,6 @@
-
 .main {
-  background: #f4efe7;
-  color: #14283f;
+  background: #f1f5f9;
+  color: #0f172a;
 }
 
 /* Apresentação principal */
@@ -18,7 +17,7 @@
     #14283f 65%,
     #24415c 100%
   );
-  color: #f4efe7;
+  color: #f8fafc;
 }
 
 .heroContent {
@@ -28,7 +27,7 @@
 .eyebrow {
   display: inline-block;
   margin-bottom: 1rem;
-  color: #d59a65;
+  color: #facc15;
   font-size: 0.8rem;
   font-weight: 800;
   letter-spacing: 2px;
@@ -43,7 +42,7 @@
 }
 
 .heroTitle span {
-  color: #c58b58;
+  color: #facc15;
 }
 
 .subtitle {
@@ -56,7 +55,7 @@
 .description {
   max-width: 580px;
   margin-bottom: 2rem;
-  color: #d8e2ec;
+  color: #e2e8f0;
   font-size: 1.1rem;
   line-height: 1.8;
 }
@@ -80,25 +79,26 @@
 }
 
 .primaryButton {
-  background: #a66c3e;
-  color: #ffffff;
-  border: 1px solid #a66c3e;
+  background: #facc15;
+  color: #07192c;
+  border: 1px solid #facc15;
 }
 
 .primaryButton:hover {
-  background: #87532e;
-  color: #ffffff;
+  background: #eab308;
+  border-color: #eab308;
+  color: #07192c;
   transform: translateY(-2px);
 }
 
 .secondaryButton {
   background: transparent;
-  color: #f4efe7;
+  color: #f8fafc;
   border: 1px solid #8dc8ee;
 }
 
 .secondaryButton:hover {
-  background: #24415c;
+  background: rgba(141, 200, 238, 0.14);
   color: #ffffff;
   transform: translateY(-2px);
 }
@@ -117,7 +117,7 @@
   max-height: 620px;
   object-fit: contain;
   border-radius: 16px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
 }
 
 /* Seção de funcionalidades */
@@ -132,16 +132,21 @@
   text-align: center;
 }
 
+.sectionHeading .eyebrow,
+.aboutContent .eyebrow {
+  color: #b45309;
+}
+
 .sectionHeading h2,
 .aboutContent h2,
 .blogSection h2 {
-  color: #14283f;
+  color: #0f172a;
   font-size: 2.2rem;
   font-weight: 800;
 }
 
 .sectionHeading p {
-  color: #53677a;
+  color: #475569;
   font-size: 1.1rem;
 }
 
@@ -154,16 +159,18 @@
 .featureCard {
   padding: 2rem;
   background: #ffffff;
-  border: 1px solid #e2d7c8;
+  border: 1px solid #dbe4ee;
   border-radius: 14px;
-  box-shadow: 0 8px 24px rgba(20, 40, 63, 0.06);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
   transition: transform 0.2s ease,
-    box-shadow 0.2s ease;
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .featureCard:hover {
   transform: translateY(-5px);
-  box-shadow: 0 14px 30px rgba(20, 40, 63, 0.12);
+  border-color: #93c5fd;
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.12);
 }
 
 .featureIcon {
@@ -173,31 +180,32 @@
   width: 60px;
   height: 60px;
   margin-bottom: 1.5rem;
-  background: #79513a;
+  background: #14283f;
+  border: 2px solid #facc15;
   border-radius: 50%;
   font-size: 1.8rem;
 }
 
 .featureCard h3 {
-  color: #14283f;
+  color: #0f172a;
   font-size: 1.3rem;
   font-weight: 800;
 }
 
 .featureCard p {
   min-height: 80px;
-  color: #53677a;
+  color: #475569;
   line-height: 1.7;
 }
 
 .featureLink {
-  color: #79513a;
+  color: #1d4ed8;
   font-weight: 700;
   text-decoration: none;
 }
 
 .featureLink:hover {
-  color: #4d3020;
+  color: #1e3a8a;
   text-decoration: underline;
 }
 
@@ -205,7 +213,7 @@
 
 .aboutSection {
   padding: 5rem 8%;
-  background: #e8dcc8;
+  background: #e2ecf7;
 }
 
 .aboutContent {
@@ -216,7 +224,7 @@
 
 .aboutContent p {
   margin: 1.5rem 0 2rem;
-  color: #42566a;
+  color: #334155;
   font-size: 1.1rem;
   line-height: 1.8;
 }
@@ -230,7 +238,7 @@
   gap: 2rem;
   padding: 4rem 8%;
   background: #14283f;
-  color: #f4efe7;
+  color: #f8fafc;
 }
 
 .blogSection h2 {
@@ -238,7 +246,7 @@
 }
 
 .blogSection p {
-  color: #d8e2ec;
+  color: #cbd5e1;
 }
 
 /* Responsividade */
