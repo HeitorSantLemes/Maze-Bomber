@@ -28,9 +28,7 @@ const config = {
         docs: {
           sidebarPath: './sidebars.js',
         },
-        blog: {
-          showReadingTime: true,
-        },
+        blog: false,
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -50,7 +48,6 @@ const config = {
             position: 'left',
             label: 'Documentação',
           },
-          {to: '/blog', label: 'Blog', position: 'left'},
         ],
       },
       footer: {

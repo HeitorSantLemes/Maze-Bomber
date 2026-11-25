@@ -151,29 +151,6 @@ export default function Home() {
             </Link>
           </div>
         </section>
-
-        {/* Blog */}
-        <section className={styles.blogSection}>
-          <div>
-            <span className={styles.eyebrow}>
-              NOVIDADES
-            </span>
-
-            <h2>Acompanhe o desenvolvimento</h2>
-
-            <p>
-              Confira novidades, atualizações e
-              informações sobre o Maze-Bomber.
-            </p>
-          </div>
-
-          <Link
-            className={styles.secondaryButton}
-            to="/blog"
-          >
-            Acessar o blog →
-          </Link>
-        </section>
       </main>
     </Layout>
   );
